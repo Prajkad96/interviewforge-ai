@@ -163,7 +163,16 @@ Learning areas include:
 - Software Engineering
 - Interview Preparation
 
+The platform can provide:
 
+- Notes
+- Examples
+- Videos/resources
+- Quizzes
+- Coding problems
+- Revision topics
+
+---
 
 ### 🔄 Revision
 
@@ -201,6 +210,7 @@ The goal is to help candidates understand their strengths, weaknesses, and overa
 
 ## 🎯 Interview Preparation Workflow
 
+```text
         LEARN
           ↓
        PRACTICE
@@ -218,197 +228,3 @@ The goal is to help candidates understand their strengths, weaknesses, and overa
        IMPROVE
           ↓
         REPEAT
-
-
-🛠️ Technology Stack
-Backend
-Python
-Flask
-Flask-SQLAlchemy
-REST APIs
-AI
-Groq Cloud API
-LLM-based interview generation
-AI-based answer evaluation
-Frontend
-HTML
-CSS
-JavaScript
-Web Speech API
-Database
-SQLite for development
-Testing
-Python testing tools
-Flask test client
-🏗️ Project Structure
-interviewforge-ai/
-│
-├── backend/
-│   ├── routes/
-│   ├── services/
-│   ├── tests/
-│   ├── app.py
-│   ├── config.py
-│   ├── extensions.py
-│   ├── models.py
-│   ├── requirements.txt
-│   └── seed_data.py
-│
-├── static/
-│   ├── css/
-│   ├── js/
-│   └── index.html
-│
-├── .env.example
-├── README.md
-└── requirements.txt
-⚙️ Installation
-1. Clone the repository
-git clone https://github.com/Prajkad96/interviewforge-ai.git
-cd interviewforge-ai
-2. Create a virtual environment
-
-Windows:
-
-python -m venv venv
-venv\Scripts\activate
-
-Linux/macOS:
-
-python3 -m venv venv
-source venv/bin/activate
-3. Install dependencies
-pip install -r requirements.txt
-
-If the required dependencies are maintained inside the backend folder:
-
-pip install -r backend/requirements.txt
-4. Configure environment variables
-
-Create a .env file using .env.example as a reference.
-
-Example:
-
-GROQ_API_KEY=your_groq_api_key
-SECRET_KEY=your_secret_key
-
-Never commit your .env file or API keys to GitHub.
-
-5. Run the application
-python backend/app.py
-
-Open the local URL displayed by Flask in your browser.
-
-🤖 Groq Cloud API
-
-InterviewForge AI uses the Groq Cloud API for AI-powered interview generation and evaluation.
-
-You need your own Groq API key to use the AI features.
-
-Store the API key securely using environment variables.
-
-🔐 Security
-
-Sensitive configuration should never be stored directly in source code.
-
-The repository should contain:
-
-.env.example
-
-but should not contain:
-
-.env
-API keys
-Passwords
-Database credentials
-Secret tokens
-📌 Current Status
-
-InterviewForge AI is currently an MVP under active development.
-
-Implemented
- Flask backend
- Groq AI integration
- AI-powered interview functionality
- Voice-based interview interaction
- Interview evaluation
- Resume/project interview preparation
- DSA practice interface
- SQL practice interface
- Learning resources
- Progress dashboard
- Interview history
- Project-specific interview preparation
-Planned Improvements
- Production-grade secure code execution sandbox
- Real SQL execution environment
- Dynamic GitHub repository ingestion
- Adaptive daily learning plans
- Spaced-repetition revision engine
- Advanced readiness scoring
- Job-description skill-gap analysis
- Advanced analytics
- Production deployment
- Expanded automated testing
-🔮 Future Vision
-
-The long-term goal of InterviewForge AI is to become a single platform for complete software interview preparation.
-
-The platform aims to combine:
-
-Learning
-   +
-Voice Practice
-   +
-AI Mock Interviews
-   +
-Project Defense
-   +
-DSA
-   +
-SQL
-   +
-Revision
-   +
-Progress Tracking
-
-into one personalized interview preparation system.
-
-🎓 Target Users
-
-InterviewForge AI is designed primarily for:
-
-Fresh graduates
-Entry-level developers
-Junior Python developers
-Backend developers
-AI/ML freshers
-Software engineering candidates
-Students preparing for technical interviews
-📈 Future Development
-
-Future versions will focus on making the platform more adaptive by using previous interview performance, weak topics, coding performance, revision history, and job descriptions to generate personalized daily preparation plans.
-
-The planned architecture will also allow InterviewForge AI to analyze a candidate's GitHub projects and generate project-specific technical questions based on their actual implementation.
-
-👩‍💻 Author
-
-Prajakta Kadalagekar
-
-Computer Engineering Graduate
-Python | Flask | AI/ML | Backend Development
-
-GitHub:
-https://github.com/Prajkad96
-
-⭐ Support
-
-If you find this project useful, consider giving the repository a ⭐ on GitHub.
-
-⚠️ Disclaimer
-
-InterviewForge AI is an educational and interview-preparation project.
-
-AI-generated feedback may not always be completely accurate and should be treated as preparation guidance rather than professional evaluation.
-
-
