@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INTERVIEWFORGE AI — Personal Software Engineering Interview Coach</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">✨</div>
+      <div>
+        <div class="brand-title">INTERVIEWFORGE</div>
+        <div style="font-size: 11px; color: var(--accent-primary); font-weight: 800; letter-spacing: 0.5px; margin-top: 2px;">💖 AI INTERVIEW COACH</div>
+      </div>
+    </div>
+
+    <nav class="nav-menu">
+      <a class="nav-item active" onclick="switchTab('dashboard')">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+      <a class="nav-item" onclick="switchTab('voice-interview')">
+        <span class="nav-icon">🎙️</span> Voice Mock Interview
+      </a>
+      <a class="nav-item" onclick="switchTab('projects-grill')">
+        <span class="nav-icon">💻</span> Candidate Projects Grill
+      </a>
+      <a class="nav-item" onclick="switchTab('resume-grill')">
+        <span class="nav-icon">📄</span> Resume Defense Mode
+      </a>
+      <a class="nav-item" onclick="switchTab('hr-trainer')">
+        <span class="nav-icon">🗣️</span> HR & Self-Intro Trainer
+      </a>
+      <a class="nav-item" onclick="switchTab('sql-sandbox')">
+        <span class="nav-icon">🗄️</span> SQL Query Sandbox
+      </a>
+      <a class="nav-item" onclick="switchTab('learn')">
+        <span class="nav-icon">📚</span> Learn & Revision
+      </a>
+      <a class="nav-item" onclick="switchTab('dsa')">
+        <span class="nav-icon">🧩</span> DSA Sandbox
+      </a>
+      <a class="nav-item" onclick="switchTab('jd-matcher')">
+        <span class="nav-icon">🎯</span> Job Description Matcher
+      </a>
+      <a class="nav-item" onclick="switchTab('settings')">
+        <span class="nav-icon">⚙️</span> Settings & Free Groq Key
+      </a>
+    </nav>
+
+    <div class="user-card">
+      <div class="user-avatar">PK</div>
+      <div class="user-info">
+        <div class="user-name">Prajakta Kadalagekar</div>
+        <div class="user-role">Junior Python / Backend SDE</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+
+    <!-- Header Bar -->
+    <header class="header-bar">
+      <div>
+        <h1 class="page-title" id="page-title">Candidate Dashboard</h1>
+        <p class="page-sub" id="page-sub">Personalized interview readiness & daily study roadmap for Prajakta Kadalagekar</p>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <div class="badge badge-success" id="streak-badge">🔥 3 Day Streak</div>
+        <div class="badge badge-primary" id="readiness-badge">Readiness Score: 68.5%</div>
+      </div>
+    </header>
+
+    <!-- TAB 1: DASHBOARD -->
+    <section id="tab-dashboard" class="tab-page active">
+      <div class="grid-cols-4" style="margin-bottom: 28px;">
+        <div class="card">
+          <div class="stat-lbl">Overall Job Readiness</div>
+          <div class="stat-val" id="dash-readiness">68.5%</div>
+          <div class="badge badge-warning" id="dash-status">Almost Ready</div>
+        </div>
+        <div class="card">
+          <div class="stat-lbl">Target Role</div>
+          <div style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin-top: 14px;">Junior Backend / Python SDE</div>
+          <div class="stat-lbl" style="margin-top: 6px; text-transform: none; color: var(--text-secondary);">B.E. Computer Engineering 2025</div>
+        </div>
+        <div class="card">
+          <div class="stat-lbl">Daily Practice Goal</div>
+          <div class="stat-val">60 Min</div>
+          <div class="stat-lbl" style="text-transform: none; color: var(--text-secondary);">5 Priority Tasks Remaining</div>
+        </div>
+        <div class="card">
+          <div class="stat-lbl">Active Weaknesses</div>
+          <div class="stat-val" style="color: var(--accent-primary);" id="dash-weak-count">3 Topics</div>
+          <div class="stat-lbl" style="text-transform: none; color: var(--text-secondary);">Spaced Repetition Scheduled</div>
+        </div>
+      </div>
+
+      <div class="grid-cols-2">
+        <div class="card">
+          <h2 style="font-size: 19px; font-weight: 800; margin-bottom: 18px; color: var(--text-primary);">Today's Priority Study Roadmap</h2>
+          <div id="daily-plan-list">
+            <!-- Dynamically Rendered -->
+          </div>
+          <button class="btn btn-primary" style="margin-top: 20px; width: 100%; justify-content: center;" onclick="switchTab('voice-interview')">
+            ▶️ Start Daily Practice Session
+          </button>
+        </div>
+
+        <div class="card">
+          <h2 style="font-size: 19px; font-weight: 800; margin-bottom: 18px; color: var(--text-primary);">Technical Competency Breakdown</h2>
+          <div style="display: flex; flex-direction: column; gap: 14px;" id="category-bars">
+            <!-- Dynamically Rendered -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Interview Performance & Daily Logs -->
+      <div class="card" style="margin-top: 28px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <div>
+            <h2 style="font-size: 19px; font-weight: 800; color: var(--text-primary);">Recent Interview Sessions & Daily History Log</h2>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 2px;">Track your score progression and interview hiring signals over time.</p>
+          </div>
+          <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;" onclick="exportProgressReport()">
+            📄 Download Progress Summary
+          </button>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-muted); font-size: 12px; text-transform: uppercase;">
+                <th style="padding: 12px 16px;">Session Date</th>
+                <th style="padding: 12px 16px;">Round Type</th>
+                <th style="padding: 12px 16px;">Target Role</th>
+                <th style="padding: 12px 16px;">Score</th>
+                <th style="padding: 12px 16px;">Hiring Signal</th>
+              </tr>
+            </thead>
+            <tbody id="session-history-rows">
+              <!-- Dynamically Rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: VOICE MOCK INTERVIEW -->
+    <section id="tab-voice-interview" class="tab-page">
+      <div class="card voice-stage">
+        <div class="interviewer-avatar">🎙️</div>
+        <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">AI Technical Interviewer</h2>
+        <p style="color: var(--text-secondary); font-size: 15px;">Voice-first interactive mock interview with strict 0–5 evaluation engine.</p>
+
+        <div style="display: flex; gap: 14px; margin-top: 20px; align-items: center;">
+          <select id="session-type-select" style="background: #ffffff; color: var(--text-primary); border: 1px solid var(--border-color); padding: 12px 18px; border-radius: var(--radius-md); font-family: var(--font-sans); font-size: 14px; outline: none; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+            <option value="Technical 30">30-Min Technical Round</option>
+            <option value="Quick 15">15-Min Quick Round</option>
+            <option value="Full 60">60-Min Full Mock Round</option>
+            <option value="Project Grill">Project Code Defense</option>
+          </select>
+          <button class="btn btn-primary" onclick="startNewSession()">Start Session</button>
+        </div>
+
+        <div class="question-box" id="question-text">
+          Click "Start Session" or "Get Question" to begin your voice mock interview.
+        </div>
+
+        <button class="btn btn-outline" onclick="speakQuestion()" style="margin-bottom: 20px;">
+          🔊 Replay Question Aloud
+        </button>
+
+        <div class="audio-waves" id="audio-visualizer">
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+        </div>
+
+        <div class="transcript-box" id="transcript-box">
+          Live transcript will appear here as you speak...
+        </div>
+
+        <!-- Optional Code Snippet Area -->
+        <div style="width: 100%; max-width: 850px; text-align: left; margin-bottom: 20px;">
+          <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;" onclick="toggleCodeSnippetBox()">
+            💻 Add Code Snippet Example (Optional)
+          </button>
+          <div id="code-snippet-wrapper" style="display: none; margin-top: 12px;" class="code-editor-wrapper">
+            <div class="code-header">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+              <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); margin-left: 8px;">answer_code_snippet.py</span>
+            </div>
+            <textarea id="answer-code-snippet" class="code-editor" style="height: 160px;" placeholder="# Type your Python / SQL code example here to include with your spoken answer..."></textarea>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px; justify-content: center; width: 100%;">
+          <button class="btn btn-primary" id="rec-btn" onclick="toggleRecording()">
+            🎤 Start Answer (Speak)
+          </button>
+          <button class="btn btn-outline" onclick="submitAnswer()">
+            📤 Submit Answer
+          </button>
+          <button class="btn btn-outline" onclick="getHint()">
+            💡 Get Progressive Hint
+          </button>
+        </div>
+
+        <!-- Evaluation Results Card -->
+        <div id="eval-result-card" style="display: none; margin-top: 28px; width: 100%; text-align: left; background: #ffffff; border: 1px solid rgba(244, 114, 182, 0.4); padding: 26px; border-radius: var(--radius-xl); box-shadow: var(--shadow-card);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="font-size: 18px; font-weight: 800; color: var(--accent-primary);">Interviewer Scorecard & Evaluation</h3>
+            <span class="badge badge-success" id="eval-score-badge">Score: 4/5 (Strong)</span>
+          </div>
+
+          <div style="font-size: 14px; line-height: 1.6; color: var(--text-primary);">
+            <p><strong>Technical Accuracy:</strong> <span id="eval-tech">4/5</span> | <strong>Communication:</strong> <span id="eval-comm">4/5</span></p>
+            <p style="margin-top: 10px;"><strong>What Was Correct:</strong> <span id="eval-correct" style="color: var(--text-secondary);">-</span></p>
+            <p style="margin-top: 6px; color: var(--accent-danger);"><strong>Missing Points / Mistakes:</strong> <span id="eval-missing">-</span></p>
+          </div>
+          
+          <div style="margin-top: 16px; background: #fce7f3; padding: 16px; border-radius: var(--radius-md); border-left: 4px solid var(--accent-primary);">
+            <strong style="color: #be185d;">Interview-Ready Answer Example:</strong>
+            <p style="font-size: 14px; color: #1e1b2e; margin-top: 6px; line-height: 1.6;" id="eval-ready-ans">-</p>
+          </div>
+
+          <div style="margin-top: 16px; color: #7e22ce; background: #f3e8ff; padding: 14px; border-radius: var(--radius-md); border-left: 4px solid var(--accent-secondary);">
+            <strong>Follow-Up Challenge:</strong>
+            <p style="font-size: 14px; margin-top: 4px; color: #1e1b2e;" id="eval-followup">-</p>
+          </div>
+
+          <!-- Next Action Buttons -->
+          <div style="margin-top: 24px; display: flex; gap: 14px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+            <button class="btn btn-primary" onclick="fetchNextQuestion()">
+              ➡️ Next Question
+            </button>
+            <button class="btn btn-outline" id="accept-followup-btn" onclick="acceptFollowUp()">
+              ⚡ Answer Follow-Up Challenge
+            </button>
+            <button class="btn btn-outline" onclick="retestTopic()">
+              🔁 Retest This Topic
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: CANDIDATE PROJECTS GRILL -->
+    <section id="tab-projects-grill" class="tab-page">
+      <div style="margin-bottom: 24px;">
+        <h2 style="font-size: 22px; font-weight: 800;">Candidate Source-of-Truth Project Knowledge Base</h2>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 4px;">Audited GitHub repositories for Prajakta Kadalagekar. Unvarnished code findings & interview defense.</p>
+      </div>
+
+      <div class="grid-cols-3" id="projects-card-grid">
+        <!-- Dynamically Rendered 6 Projects -->
+      </div>
+
+      <!-- Project Inspection Drawer Modal -->
+      <div id="project-detail-view" style="display: none; margin-top: 28px;" class="card">
+        <h3 id="proj-detail-title" style="font-size: 24px; font-weight: 800; color: var(--accent-primary);"></h3>
+        <p id="proj-detail-repo" style="font-size: 13px; color: var(--text-secondary); font-family: var(--font-mono); margin-bottom: 14px;"></p>
+        <p id="proj-detail-arch" style="font-size: 15px; line-height: 1.6; margin-bottom: 20px; color: var(--text-primary);"></p>
+
+        <h4 style="font-size: 15px; color: var(--accent-success); margin-bottom: 10px;">[IMPLEMENTED FEATURES]</h4>
+        <ul id="proj-detail-features" style="padding-left: 20px; font-size: 14px; margin-bottom: 20px; color: var(--text-secondary); line-height: 1.6;"></ul>
+
+        <h4 style="font-size: 15px; color: var(--accent-danger); margin-bottom: 10px;">[SECURITY AUDIT & WEAKNESSES]</h4>
+        <ul id="proj-detail-audits" style="padding-left: 20px; font-size: 14px; margin-bottom: 20px; color: var(--accent-danger); line-height: 1.6;"></ul>
+
+      </div>
+    </section>
+
+    <!-- TAB: RESUME DEFENSE MODE -->
+    <section id="tab-resume-grill" class="tab-page">
+      <div style="margin-bottom: 24px;">
+        <h2 style="font-size: 22px; font-weight: 800;">Resume Defense Mode & Certification Verification</h2>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 4px;">Grilling engine targeting Prajakta's exact resume claims, education, certifications, and technical skills.</p>
+      </div>
+
+      <div class="grid-cols-2" style="margin-bottom: 28px;">
+        <div class="card">
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--accent-primary); margin-bottom: 12px;">Resume Summary & Credentials</h3>
+          <p style="font-size: 14px; line-height: 1.6; color: var(--text-primary); margin-bottom: 14px;">
+            <strong>Candidate:</strong> Prajakta Kadalagekar<br>
+            <strong>Education:</strong> B.E. Computer Engineering 2025 (CGPA 7.2) | Diploma Computer 77%<br>
+            <strong>Certifications:</strong> Python for Web Development (IBM) | AI & ML Virtual Internship (Kodacy)<br>
+            <strong>Technical Skills:</strong> Python, Flask, MySQL, MobileNetV2, Google Gemini API, REST APIs, Werkzeug, Flask-Login, JavaScript, HTML/CSS, Git.
+          </p>
+          <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="grillResumeClaim('IBM Python Certification')">
+            🔥 Grill Me On IBM Python & Web Dev
+          </button>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--accent-secondary); margin-bottom: 12px;">Resume Claim Defense Challenges</h3>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button class="btn btn-outline" style="justify-content: flex-start;" onclick="grillResumeClaim('MobileNetV2 ML Model')">
+              🧠 Challenge: "How did you use MobileNetV2 in your project?"
+            </button>
+            <button class="btn btn-outline" style="justify-content: flex-start;" onclick="grillResumeClaim('Google Gemini API')">
+              🤖 Challenge: "How did you integrate Gemini API & handle rate limits?"
+            </button>
+            <button class="btn btn-outline" style="justify-content: flex-start;" onclick="grillResumeClaim('MySQL Database & Werkzeug Hashing')">
+              🗄️ Challenge: "Explain MySQL Foreign Keys & Werkzeug password hashing"
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: HR & SELF-INTRO TRAINER -->
+    <section id="tab-hr-trainer" class="tab-page">
+      <div style="margin-bottom: 24px;">
+        <h2 style="font-size: 22px; font-weight: 800;">HR & Self-Introduction Trainer (STAR Method)</h2>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 4px;">Master your 60–90 second self-introduction and standard fresher HR behavioral questions.</p>
+      </div>
+
+      <div class="grid-cols-2" style="margin-bottom: 28px;">
+        <div class="card">
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--accent-primary); margin-bottom: 12px;">"Tell Me About Yourself" (Target: 60-90s)</h3>
+          <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;">
+            <strong>Structure Guide:</strong><br>
+            1. Brief Intro & Education (Computer Engineering 2025)<br>
+            2. Core Technical Strengths (Python, Flask, REST APIs, MySQL)<br>
+            3. Key Projects Built (Skin Analysis AI, Gemini Chatbot, Job Tracker)<br>
+            4. Why this Role / Career Goal
+          </p>
+
+          <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="practiceSelfIntro()">
+            🎤 Practice 60-90s Self-Introduction
+          </button>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--accent-secondary); margin-bottom: 12px;">Top Fresher HR Practice Questions</h3>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button class="btn btn-outline" style="justify-content: flex-start;" onclick="practiceHRQuestion('Why Python & Backend Development?')">
+              ❓ "Why did you choose Python and Backend Development?"
+            </button>
+            <button class="btn btn-outline" style="justify-content: flex-start;" onclick="practiceHRQuestion('Why should we hire a fresher?')">
+              ❓ "Why should we hire you as a fresher over experienced candidates?"
+            </button>
+            <button class="btn btn-outline" style="justify-content: flex-start;" onclick="practiceHRQuestion('Describe a major bug or project challenge you faced.')">
+              ❓ "Describe a major technical challenge or bug you solved using STAR method."
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: SQL QUERY SANDBOX -->
+    <section id="tab-sql-sandbox" class="tab-page">
+      <div class="grid-cols-2">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h2 id="sql-title" style="font-size: 20px; font-weight: 800;">SQL Question: 2nd Highest Salary</h2>
+            <span class="badge badge-warning">Medium</span>
+          </div>
+          <p id="sql-desc" style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
+            Write a SQL query to find the 2nd highest salary from the `Employee` table (columns: `id`, `salary`). Return NULL if there is no 2nd highest salary.
+          </p>
+
+          <div style="background: #ffffff; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 13px; line-height: 1.5; color: var(--text-primary); margin-bottom: 16px;">
+            <strong>Sample Schema:</strong><br>
+            <code>Employee (id INT, salary INT)</code><br><br>
+            <strong>Expected Output Example:</strong><br>
+            <code>SecondHighestSalary: 200</code>
+          </div>
+
+          <button class="btn btn-outline" onclick="showSQLHint()">💡 View SQL Hint</button>
+          <div id="sql-hint-box" style="display: none; margin-top: 12px; font-size: 14px; color: var(--accent-warning); background: #fffbe0; padding: 14px; border-radius: var(--radius-md); border-left: 4px solid var(--accent-warning);">
+            Hint: Use `MAX(salary)` with subquery OR `DISTINCT salary ORDER BY salary DESC LIMIT 1 OFFSET 1`.
+          </div>
+        </div>
+
+        <div>
+          <div class="code-editor-wrapper">
+            <div class="code-header">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+              <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); margin-left: 8px;">mysql_query.sql</span>
+            </div>
+            <textarea id="sql-editor" class="code-editor" spellcheck="false">SELECT MAX(salary) AS SecondHighestSalary FROM Employee WHERE salary < (SELECT MAX(salary) FROM Employee);</textarea>
+          </div>
+
+          <button class="btn btn-primary" style="margin: 16px 0; width: 100%; justify-content: center;" onclick="runSQLQuery()">▶️ Test SQL Query</button>
+
+          <h4 style="font-size: 14px; margin-bottom: 8px; font-weight: 700; color: var(--text-secondary);">SQL Verification Console</h4>
+          <div id="sql-output" class="code-output">Click "Test SQL Query" to evaluate syntax...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: LEARN & REVISION -->
+    <section id="tab-learn" class="tab-page">
+      <div style="margin-bottom: 24px;">
+        <h2 style="font-size: 22px; font-weight: 800;">Curriculum Learn & Revision Platform (100% Resume Skills)</h2>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 4px;">Structured 30-second answers, 1-minute explanations, and deep-dive architectures covering every skill on Prajakta's resume.</p>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+        <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px;" onclick="filterCurriculum('all')">✨ All Resume Skills (16)</button>
+        <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px;" onclick="filterCurriculum('python')">🐍 Python & OOP</button>
+        <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px;" onclick="filterCurriculum('backend')">⚡ Backend, Flask & FastAPI</button>
+        <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px;" onclick="filterCurriculum('sql')">🗄️ SQL & MySQL</button>
+        <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px;" onclick="filterCurriculum('ai_ml')">🤖 AI/ML, Gemini & OpenCV</button>
+        <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px;" onclick="filterCurriculum('c_cpp')">💻 C / C++</button>
+        <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px;" onclick="filterCurriculum('java')">☕ Java & OOP</button>
+        <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px;" onclick="filterCurriculum('tools')">🛠️ Git & Tools</button>
+      </div>
+
+      <div class="grid-cols-3" style="margin-bottom: 28px;" id="topics-grid">
+        <!-- Dynamically Rendered Topics -->
+      </div>
+
+      <div class="card" id="topic-detail-card" style="display: none;">
+        <h2 id="topic-title" style="font-size: 24px; font-weight: 800; margin-bottom: 8px;"></h2>
+        <p id="topic-summary" style="color: var(--text-secondary); margin-bottom: 20px; font-size: 15px;"></p>
+
+        <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+          <button class="btn btn-outline" onclick="showAnswerTab('sec30')">⚡ 30-Second Summary</button>
+          <button class="btn btn-outline" onclick="showAnswerTab('min1')">⏱️ 1-Minute Explanation</button>
+          <button class="btn btn-outline" onclick="showAnswerTab('deep')">🔬 Deep Dive Architecture</button>
+        </div>
+
+        <div id="ans-display-box" style="background: #ffffff; padding: 20px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); font-size: 15px; line-height: 1.7; color: var(--text-primary); box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          Select an answer format above.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: DSA SANDBOX -->
+    <section id="tab-dsa" class="tab-page">
+      <div class="grid-cols-2">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h2 id="dsa-title" style="font-size: 20px; font-weight: 800;">Two Sum</h2>
+            <span class="badge badge-success" id="dsa-diff">Easy</span>
+          </div>
+          <p id="dsa-desc" style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; white-space: pre-wrap; margin-bottom: 20px;"></p>
+          
+          <button class="btn btn-outline" onclick="showDSAHint()" style="margin-bottom: 14px;">💡 View Problem Hints</button>
+          <div id="dsa-hint-box" style="display: none; font-size: 14px; color: var(--accent-warning); background: #fffbe0; padding: 16px; border-radius: var(--radius-md); border-left: 4px solid var(--accent-warning);"></div>
+        </div>
+
+        <div>
+          <div class="code-editor-wrapper">
+            <div class="code-header">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+              <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); margin-left: 8px;">python_sandbox.py</span>
+            </div>
+            <textarea id="dsa-editor" class="code-editor" spellcheck="false"></textarea>
+          </div>
+
+          <button class="btn btn-primary" style="margin: 16px 0; width: 100%; justify-content: center;" onclick="runDSACode()">▶️ Run Code & Test Cases</button>
+
+          <h4 style="font-size: 14px; margin-bottom: 8px; font-weight: 700; color: var(--text-secondary);">Execution Console Output</h4>
+          <div id="dsa-output" class="code-output">Click "Run Code" to execute tests...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: JD MATCHER -->
+    <section id="tab-jd-matcher" class="tab-page">
+      <div class="card">
+        <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Job Description Specific Preparation</h2>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">Paste a target Job Description to compare against Prajakta's profile and generate tailored mock questions.</p>
+        
+        <textarea id="jd-text-area" class="code-editor" style="height: 180px; font-family: var(--font-sans);" placeholder="Paste Job Description text here..."></textarea>
+        
+        <button class="btn btn-primary" onclick="analyzeJD()" style="margin-top: 20px;">🎯 Analyze & Match Job Description</button>
+
+        <div id="jd-results-box" style="display: none; margin-top: 28px;">
+          <h3 style="font-size: 19px; font-weight: 800; margin-bottom: 16px;">Job Match Evaluation Results</h3>
+          <div class="grid-cols-2">
+            <div style="background: #d1fae5; border: 1px solid #a7f3d0; padding: 20px; border-radius: var(--radius-lg);">
+              <h4 style="color: #047857; font-size: 16px;">Matched Core Skills</h4>
+              <ul id="jd-matched-list" style="padding-left: 20px; font-size: 14px; margin-top: 10px; line-height: 1.6; color: #065f46;"></ul>
+            </div>
+            <div style="background: #ffe4e6; border: 1px solid #fecdd3; padding: 20px; border-radius: var(--radius-lg);">
+              <h4 style="color: #e11d48; font-size: 16px;">Missing / Gap Skills</h4>
+              <ul id="jd-missing-list" style="padding-left: 20px; font-size: 14px; margin-top: 10px; line-height: 1.6; color: #9f1239;"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7: SETTINGS & FREE GROQ KEY -->
+    <section id="tab-settings" class="tab-page">
+      <div class="card" style="max-width: 750px;">
+        <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Groq Cloud API Configuration</h2>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+          INTERVIEWFORGE AI uses Groq Cloud API for ultra-fast, 100% free developer inference.
+        </p>
+
+        <div style="background: #fce7f3; border: 1px solid #fbcfe8; padding: 20px; border-radius: var(--radius-lg); margin-bottom: 24px;">
+          <h4 style="color: #be185d; font-size: 16px; margin-bottom: 6px;">💡 Get Your 100% Free Groq API Key</h4>
+          <p style="font-size: 14px; color: #831843; line-height: 1.6;">
+            1. Visit <a href="https://console.groq.com/keys" target="_blank" style="color: #be185d; font-weight: 700;">https://console.groq.com/keys</a><br>
+            2. Sign in with Google or GitHub.<br>
+            3. Click <strong>"Create API Key"</strong> and paste it below.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 14px; margin-bottom: 8px; font-weight: 700;">Groq API Key (gsk_...)</label>
+          <input type="password" id="groq-key-input" style="width: 100%; background: #ffffff; border: 1px solid var(--border-color); color: var(--text-primary); padding: 14px; border-radius: var(--radius-md); font-family: var(--font-mono); outline: none;" placeholder="Paste gsk_... key here">
+        </div>
+
+        <button class="btn btn-primary" onclick="saveGroqKey()">Save Groq API Key</button>
+        <span id="groq-save-msg" style="margin-left: 14px; font-size: 14px; color: var(--accent-success); font-weight: 700;"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
